@@ -9,3 +9,5 @@ Testing resource sqlDb 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-
     }
   }
 }
+
+test line 
