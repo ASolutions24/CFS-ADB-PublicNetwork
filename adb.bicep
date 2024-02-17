@@ -6,7 +6,7 @@ param publicNetworkAccess string = 'Enabled'
   'AllRules'
   'NoAzureDatabricksRules'
 ])
-param requiredNsgRules string = 'AllRules'
+param requiredNsgRules string = 'NoAzureDatabricksRules'
 
 @description('Location for all resources.')
 param location string //= resourceGroup().location
@@ -45,13 +45,13 @@ var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(wo
 var trimmedMRGName = substring(managedResourceGroupName, 0, min(length(managedResourceGroupName), 90))
 var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGName}'
 
-/*
+
 var privateEndpointName = '${workspaceName}-pvtEndpoint'
 var privateEndpointBrowserName = '${workspaceName}-BrowserpvtEndpoint'
 var privateDnsZoneName = 'privatelink.azuredatabricks.net'
 var pvtEndpointDnsGroupName = '${privateEndpointName}/mydnsgroupname'
 var pvtEndpointBrowserDnsGroupName = '${privateEndpointBrowserName}/mydnsgroupname'
-*/
+
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
   name: workspaceName
@@ -80,7 +80,7 @@ resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
     requiredNsgRules: requiredNsgRules
   }
 }
-/*
+
 resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
   name: privateEndpointName
   location: location
@@ -177,4 +177,3 @@ resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateD
     privateEndpoint
   ]
 }
-*/
