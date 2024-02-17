@@ -1,13 +1,25 @@
-Testing resource sqlDb 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2021-06-15' = {
-  name: 'name'
-  properties: {
-    resource: {
-      id: 'id'
-    }
-    options: {
-      throughput: 'throughput'
-    }
-  }
+param stgActName string
+
+
+@allowed([
+  'Standard_LRS'
+  'Standard_GRS'
+]
+)
+param stgActSku string = 'Standard_LRS'
+
+param stgTags object = {
+  Environment: 'Lab'
+  Dept: 'IT'
 }
 
-test line adding
+resource storage 'Microsoft.Storage/storageAccounts@2021-02-01' = {
+
+  name: stgActName
+  sku:{
+    name: stgActSku
+  }
+  kind:'StorageV2'
+  location:'australiaeast'
+  tags:stgTags
+}
