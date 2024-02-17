@@ -47,10 +47,10 @@ var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGNa
 
 
 var privateEndpointName = '${workspaceName}-pvtEndpoint'
-var privateEndpointBrowserName = '${workspaceName}-BrowserpvtEndpoint'
+var privateEndpointBrowserAuthName = '${workspaceName}-BrowserpvtEndpoint'
 var privateDnsZoneName = 'privatelink.azuredatabricks.net'
 var pvtEndpointDnsGroupName = '${privateEndpointName}/mydnsgroupname'
-var pvtEndpointBrowserDnsGroupName = '${privateEndpointBrowserName}/mydnsgroupname'
+var pvtEndpointBrowserAuthDnsGroupName = '${privateEndpointBrowserAuthName}/mydnsgroupname'
 
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
@@ -103,7 +103,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
 }
 
 resource privateBrowserEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
-  name: privateEndpointBrowserName
+  name: privateEndpointBrowserAuthName
   location: location
   properties: {
     subnet: {
@@ -111,7 +111,7 @@ resource privateBrowserEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' 
     }
     privateLinkServiceConnections: [
       {
-        name: privateEndpointBrowserName
+        name: privateEndpointBrowserAuthName
         properties: {
           privateLinkServiceId: symbolicname.id
           groupIds: [
@@ -162,7 +162,7 @@ resource pvtEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
 }
 
 resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-12-01' = {
-  name: pvtEndpointBrowserDnsGroupName
+  name: pvtEndpointBrowserAuthDnsGroupName
   properties: {
     privateDnsZoneConfigs: [
       {
