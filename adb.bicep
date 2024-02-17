@@ -144,8 +144,25 @@ resource privateDnsZoneName_privateDnsZoneName_link 'Microsoft.Network/privateDn
   }
 }
 
+resource pvtEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-12-01' = {
+  name: pvtEndpointDnsGroupName
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'config1'
+        properties: {
+          privateDnsZoneId: privateDnsZone.id
+        }
+      }
+    ]
+  }
+  dependsOn: [
+    privateEndpoint
+  ]
+}
+
 resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-12-01' = {
-  name: privateEndpointBrowserName
+  name: pvtEndpointBrowserDnsGroupName
   properties: {
     privateDnsZoneConfigs: [
       {
