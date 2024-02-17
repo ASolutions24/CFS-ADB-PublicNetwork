@@ -50,6 +50,7 @@ var privateEndpointName = '${workspaceName}-pvtEndpoint'
 var privateEndpointBrowserName = '${workspaceName}-BrowserpvtEndpoint'
 var privateDnsZoneName = 'privatelink.azuredatabricks.net'
 var pvtEndpointDnsGroupName = '${privateEndpointName}/mydnsgroupname'
+var pvtEndpointBrowserDnsGroupName = '${privateEndpointBrowserName}/mydnsgroupname'
 
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
@@ -143,8 +144,8 @@ resource privateDnsZoneName_privateDnsZoneName_link 'Microsoft.Network/privateDn
   }
 }
 
-resource pvtEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-12-01' = {
-  name: pvtEndpointDnsGroupName
+resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-12-01' = {
+  name: privateEndpointBrowserName
   properties: {
     privateDnsZoneConfigs: [
       {
