@@ -1,12 +1,12 @@
 param disablePublicIp bool = true
-param publicNetworkAccess string = 'Enabled'
+param publicNetworkAccess string = 'Disabled'
 
 @description('Indicates whether to retain or remove the AzureDatabricks outbound NSG rule - possible values are AllRules or NoAzureDatabricksRules.')
 @allowed([
   'AllRules'
   'NoAzureDatabricksRules'
 ])
-param requiredNsgRules string = 'AllRules'
+param requiredNsgRules string = 'NoAzureDatabricksRules'
 
 @description('Location for all resources.')
 param location string //= resourceGroup().location
@@ -47,10 +47,10 @@ var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGNa
 
 
 var privateEndpointName = '${workspaceName}-pvtEndpoint'
-var privateEndpointBrowserAuthName = '${workspaceName}-BrowserpvtEndpoint'
+//var privateEndpointBrowserAuthName = '${workspaceName}-BrowserpvtEndpoint'
 var privateDnsZoneName = 'privatelink.azuredatabricks.net'
 var pvtEndpointDnsGroupName = '${privateEndpointName}/mydnsgroupname'
-var pvtEndpointBrowserAuthDnsGroupName = '${privateEndpointBrowserAuthName}/mydnsgroupname'
+//var pvtEndpointBrowserAuthDnsGroupName = '${privateEndpointBrowserAuthName}/mydnsgroupname'
 
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
@@ -101,7 +101,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
     ]
   }
 }
-
+/*
 resource privateBrowserEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
   name: privateEndpointBrowserAuthName
   location: location
@@ -122,7 +122,7 @@ resource privateBrowserEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' 
     ]
   }
 }
-
+*/
 
 resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: privateDnsZoneName
@@ -160,7 +160,7 @@ resource pvtEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
     privateEndpoint
   ]
 }
-
+/*
 resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-12-01' = {
   name: pvtEndpointBrowserAuthDnsGroupName
   properties: {
@@ -177,3 +177,4 @@ resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateD
     privateEndpoint
   ]
 }
+*/
