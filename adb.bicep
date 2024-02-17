@@ -6,7 +6,7 @@ param publicNetworkAccess string = 'Enabled'
   'AllRules'
   'NoAzureDatabricksRules'
 ])
-param requiredNsgRules string = 'NoAzureDatabricksRules'
+param requiredNsgRules string = 'AllRules'
 
 @description('Location for all resources.')
 param location string //= resourceGroup().location
