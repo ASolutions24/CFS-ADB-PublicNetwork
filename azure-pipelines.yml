@@ -22,4 +22,4 @@ jobs:
       templateLocation: 'Linked artifact'
       csmFile: 'adb.bicep'
       csmParametersFile: 'adb.parameters.json'
-      deploymentMode: 'Validation'
+      deploymentMode: 'Incremental'
