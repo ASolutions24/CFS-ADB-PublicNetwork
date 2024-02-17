@@ -47,6 +47,7 @@ var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGNa
 
 
 var privateEndpointName = '${workspaceName}-pvtEndpoint'
+var privateEndpointBrowserName = '${workspaceName}-BrowserpvtEndpoint'
 var privateDnsZoneName = 'privatelink.azuredatabricks.net'
 var pvtEndpointDnsGroupName = '${privateEndpointName}/mydnsgroupname'
 
@@ -99,6 +100,28 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
     ]
   }
 }
+
+resource privateBrowserEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
+  name: privateEndpointBrowserName
+  location: location
+  properties: {
+    subnet: {
+      id: resourceId('Microsoft.Network/virtualNetworks/subnets', vnetName, PrivateEndpointSubnetName)
+    }
+    privateLinkServiceConnections: [
+      {
+        name: privateEndpointBrowserName
+        properties: {
+          privateLinkServiceId: symbolicname.id
+          groupIds: [
+            'browser_authentication'
+          ]
+        }
+      }
+    ]
+  }
+}
+
 
 resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: privateDnsZoneName
