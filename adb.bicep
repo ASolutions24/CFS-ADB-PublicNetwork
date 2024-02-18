@@ -174,6 +174,6 @@ resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateD
     ]
   }
   dependsOn: [
-    privateBrowserEndpoint
+    privateEndpoint,privateBrowserEndpoint,pvtEndpointDnsGroup
   ]
 }
