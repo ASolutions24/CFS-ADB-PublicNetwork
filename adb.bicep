@@ -45,13 +45,13 @@ var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(wo
 var trimmedMRGName = substring(managedResourceGroupName, 0, min(length(managedResourceGroupName), 90))
 var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGName}'
 
-/*
+
 var privateEndpointName = '${workspaceName}-pvtEndpoint'
 var privateEndpointBrowserAuthName = '${workspaceName}-BrowserpvtEndpoint'
 var privateDnsZoneName = 'privatelink.azuredatabricks.net'
 var pvtEndpointDnsGroupName = '${privateEndpointName}/mydnsgroupname'
 var pvtEndpointBrowserAuthDnsGroupName = '${privateEndpointBrowserAuthName}/mydnsgroupname'
-*/
+
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
   name: workspaceName
@@ -80,7 +80,7 @@ resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
     requiredNsgRules: requiredNsgRules
   }
 }
-/*
+
 resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
   name: privateEndpointName
   location: location
@@ -174,7 +174,6 @@ resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateD
     ]
   }
   dependsOn: [
-    privateEndpoint
+    privateBrowserEndpoint
   ]
 }
-*/
