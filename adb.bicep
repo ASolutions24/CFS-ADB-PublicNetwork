@@ -121,6 +121,9 @@ resource privateBrowserEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' 
       }
     ]
   }
+  dependsOn: [
+    privateEndpoint
+  ]
 }
 
 
