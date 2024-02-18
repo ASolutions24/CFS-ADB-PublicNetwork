@@ -1,12 +1,12 @@
 param disablePublicIp bool = true
-param publicNetworkAccess string = 'Enabled'
+param publicNetworkAccess string = 'Disabled'
 
 @description('Indicates whether to retain or remove the AzureDatabricks outbound NSG rule - possible values are AllRules or NoAzureDatabricksRules.')
 @allowed([
   'AllRules'
   'NoAzureDatabricksRules'
 ])
-param requiredNsgRules string = 'AllRules'
+param requiredNsgRules string = 'NoAzureDatabricksRules'
 
 @description('Location for all resources.')
 param location string //= resourceGroup().location
