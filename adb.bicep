@@ -41,8 +41,9 @@ output subnetid string = subnet.id
 @description('The name of the Azure Databricks workspace to create.')
 param workspaceName string
 
-var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(workspaceName, resourceGroup().id)}'
-var trimmedMRGName = substring(managedResourceGroupName, 0, min(length(managedResourceGroupName), 90))
+//var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(workspaceName, resourceGroup().id)}'
+var MSmanagedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(workspaceName, resourceGroup().id)}'
+var trimmedMRGName = substring(MSmanagedResourceGroupName, 0, min(length(MSmanagedResourceGroupName), 80))
 var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGName}'
 
 /*
