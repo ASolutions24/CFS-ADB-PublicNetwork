@@ -1,12 +1,12 @@
 param disablePublicIp bool = true
-param publicNetworkAccess string = 'Disabled'
+param publicNetworkAccess string = 'Enabled'
 
 @description('Indicates whether to retain or remove the AzureDatabricks outbound NSG rule - possible values are AllRules or NoAzureDatabricksRules.')
 @allowed([
   'AllRules'
   'NoAzureDatabricksRules'
 ])
-param requiredNsgRules string = 'NoAzureDatabricksRules'
+param requiredNsgRules string = 'AllRules'
 
 @description('Location for all resources.')
 param location string //= resourceGroup().location
@@ -45,13 +45,13 @@ var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(wo
 var trimmedMRGName = substring(managedResourceGroupName, 0, min(length(managedResourceGroupName), 90))
 var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGName}'
 
-
+/*
 var privateEndpointName = '${workspaceName}-pvtEndpoint'
 var privateEndpointBrowserAuthName = '${workspaceName}-BrowserpvtEndpoint'
 var privateDnsZoneName = 'privatelink.azuredatabricks.net'
 var pvtEndpointDnsGroupName = '${privateEndpointName}/mydnsgroupname'
 var pvtEndpointBrowserAuthDnsGroupName = '${privateEndpointBrowserAuthName}/mydnsgroupname'
-
+*/
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
   name: workspaceName
@@ -80,7 +80,7 @@ resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
     requiredNsgRules: requiredNsgRules
   }
 }
-
+/*
 resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-08-01' = {
   name: privateEndpointName
   location: location
@@ -180,3 +180,4 @@ resource pvtEndpointBrowserDnsGroup 'Microsoft.Network/privateEndpoints/privateD
     privateEndpoint,privateBrowserEndpoint,pvtEndpointDnsGroup
   ]
 }
+*/
