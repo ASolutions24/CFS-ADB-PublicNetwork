@@ -60,8 +60,7 @@ stages:
           az deployment group what-if \
             --template-file $(Build.SourcesDirectory)/$(templateFile) \
             --parameters '$(Build.SourcesDirectory)/$(templateParameterFile)' \
-            --location '$(location)' \
-            --resource-group '$(resourceGroupName)' \
+            --resource-group '$(resourceGroupName)'
 
 - stage: Deploy
   jobs:
