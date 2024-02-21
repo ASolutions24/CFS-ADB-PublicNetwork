@@ -12,6 +12,7 @@ variables:
 
   azureServiceConnection: 'Prod_Subscription'
   location: 'australiaeast'
+  resourceGroupName: 'rg-sec-dbw-prod'
   templateFile: '/adb.bicep'
   templateParameterFile: '/adb.parameters.json'
 
@@ -59,7 +60,8 @@ stages:
           az deployment group what-if \
             --template-file $(Build.SourcesDirectory)/$(templateFile) \
             --parameters '$(Build.SourcesDirectory)/$(templateParameterFile)' \
-            --location '$(location)'
+            --location '$(location)' \
+            --resource-group '$(resourceGroupName)' \
 
 - stage: Deploy
   jobs:
