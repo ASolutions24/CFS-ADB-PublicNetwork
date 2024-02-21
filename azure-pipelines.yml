@@ -40,13 +40,14 @@ stages:
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
-        deploymentScope: 'Subscription'
+        deploymentScope: 'Resource Group'
         azureResourceManagerConnection: '$(azureServiceConnection)'
+        action: 'Create Or Update Resource Group'
         location: '$(location)'
         templateLocation: 'Linked artifact'
         csmFile: '$(Build.SourcesDirectory)/$(templateFile)'
         csmParametersFile: '$(Build.SourcesDirectory)/$(templateParameterFile)'
-        deploymentMode: 'Validation'        
+        deploymentMode: 'Validation'
 
 - stage: Preview
   dependsOn: Validate
@@ -77,7 +78,7 @@ stages:
             - task: AzureResourceManagerTemplateDeployment@3
               name: DeployBicepTemplate
               inputs:
-                deploymentScope: 'Subscription'
+                deploymentScope: 'Resource Group'
                 azureResourceManagerConnection: '$(azureServiceConnection)'
                 action: 'Create Or Update Resource Group'
                 location: '$(location)'
