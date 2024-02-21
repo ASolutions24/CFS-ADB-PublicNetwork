@@ -26,9 +26,11 @@ param vnetResourceGroupName string = 'rg-sec-dbw-prod'
 
 param vnetName string = 'vnet-sec-dbw-prod'
 
+param ProdsubscriptionID string = '2f054702-74ef-49dc-8055-920692478b36'
+
 resource vnet 'Microsoft.Network/virtualNetworks@2022-11-01' existing = {
   name: vnetName
-  scope: resourceGroup(vnetResourceGroupName)
+  scope: resourceGroup(ProdsubscriptionID,vnetResourceGroupName)
 }
 
 resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' existing = {
