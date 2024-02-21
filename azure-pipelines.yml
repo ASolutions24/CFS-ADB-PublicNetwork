@@ -74,9 +74,8 @@ stages:
             - task: AzureResourceManagerTemplateDeployment@3
               name: DeployBicepTemplate
               inputs:
-                deploymentScope: 'Resource Group'
+                deploymentScope: 'Subscription'
                 azureResourceManagerConnection: '$(azureServiceConnection)'
-                action: 'Create Or Update Resource Group'
                 location: '$(location)'
                 templateLocation: 'Linked artifact'
                 csmFile: '$(Build.SourcesDirectory)/$(templateFile)'
