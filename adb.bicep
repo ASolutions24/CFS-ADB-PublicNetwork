@@ -1,3 +1,4 @@
+targetScope = 'subscription'
 param disablePublicIp bool = true
 param publicNetworkAccess string = 'Enabled'
 
