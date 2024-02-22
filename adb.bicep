@@ -40,10 +40,6 @@ var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGNa
 */
 var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(workspaceName, resourceGroup().id)}'
 
-resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
-  scope: subscription()
-  name: managedResourceGroupName
-}
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
   name: workspaceName
   location: location
@@ -70,4 +66,9 @@ resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
     publicNetworkAccess: publicNetworkAccess
     requiredNsgRules: requiredNsgRules
   }
+}
+
+resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
+  scope: subscription()
+  name: managedResourceGroupName
 }
