@@ -48,7 +48,7 @@ resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
     name: pricingTier
   }
   properties: {
-    managedResourceGroupId: managedResourceGroupId
+    managedResourceGroupId: managedResourceGroup.Id
     parameters: {
       customVirtualNetworkId: {
         value: vnet.id
