@@ -12,7 +12,6 @@ variables:
 
   azureServiceConnection: 'Prod_Subscription'
   location: 'australiaeast'
-  resourceGroupName: 'rg-sec-dbw-prod'
   templateFile: '/adb.bicep'
   templateParameterFile: '/adb.parameters.json'
 
@@ -38,9 +37,8 @@ stages:
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
-        deploymentScope: 'Resource Group'
+        deploymentScope: 'Subscription'
         azureResourceManagerConnection: '$(azureServiceConnection)'
-        action: 'Create Or Update Resource Group'
         location: '$(location)'
         templateLocation: 'Linked artifact'
         csmFile: '$(Build.SourcesDirectory)/$(templateFile)'
@@ -58,10 +56,10 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az deployment group what-if \
+          az deployment sub what-if \
             --template-file $(Build.SourcesDirectory)/$(templateFile) \
             --parameters '$(Build.SourcesDirectory)/$(templateParameterFile)' \
-            --resource-group '$(resourceGroupName)'
+            --location '$(location)'
 
 - stage: Deploy
   jobs:
@@ -76,10 +74,8 @@ stages:
             - task: AzureResourceManagerTemplateDeployment@3
               name: DeployBicepTemplate
               inputs:
-                deploymentScope: 'Resource Group'
+                deploymentScope: 'Subscription'
                 azureResourceManagerConnection: '$(azureServiceConnection)'
-                action: 'Create Or Update Resource Group'
-                resourceGroupName: '$(resourceGroupName)'
                 location: '$(location)'
                 templateLocation: 'Linked artifact'
                 csmFile: '$(Build.SourcesDirectory)/$(templateFile)'
