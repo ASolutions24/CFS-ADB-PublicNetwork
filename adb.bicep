@@ -20,8 +20,8 @@ param publicSubnetName string = 'sn-dbw-public'
 @description('The name of the private subnet to create.')
 param privateSubnetName string = 'sn-dbw-private'
 
-@description('Virtual Network subnet name')
-param PrivateEndpointSubnetName string = 'sn-dbw-private-ep'
+//@description('Virtual Network subnet name')
+//param PrivateEndpointSubnetName string = 'sn-dbw-private-ep'
 
 param vnetResourceGroupName string = 'rg-sec-dbw-prod'
 
