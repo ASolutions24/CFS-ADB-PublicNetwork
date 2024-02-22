@@ -39,6 +39,7 @@ var trimmedMRGName = substring(managedResourceGroupName, 0, min(length(managedRe
 var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGName}'
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
+  scope: 'subscription'
   name: workspaceName
   location: location
   sku: {
