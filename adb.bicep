@@ -42,7 +42,6 @@ resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
   name: managedResourceGroupName
 }
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
-  scope: 'subscription'
   name: workspaceName
   location: location
   sku: {
