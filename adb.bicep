@@ -1,4 +1,4 @@
-targetScope = 'subscription'
+//targetScope = 'subscription'
 param disablePublicIp bool = true
 param publicNetworkAccess string = 'Enabled'
 
@@ -33,13 +33,13 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-11-01' existing = {
   name: vnetName
   scope: resourceGroup(ProdsubscriptionID,vnetResourceGroupName)
 }
-
+/*
 resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' existing = {
   name: PrivateEndpointSubnetName
   parent: vnet
 }
-//output subnetid string = subnet.id
-
+output subnetid string = subnet.id
+*/
 
 @description('The name of the Azure Databricks workspace to create.')
 param workspaceName string
