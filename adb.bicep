@@ -1,4 +1,3 @@
-targetScope = 'subscription'
 param disablePublicIp bool = true
 param publicNetworkAccess string = 'Enabled'
 
@@ -38,6 +37,10 @@ var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(wo
 var trimmedMRGName = substring(managedResourceGroupName, 0, min(length(managedResourceGroupName), 90))
 var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGName}'
 
+resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
+  scope: subscription()
+  name: managedResourceGroupName
+}
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
   scope: 'subscription'
   name: workspaceName
