@@ -37,7 +37,7 @@ resource subnet 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' existing 
   name: PrivateEndpointSubnetName
   parent: vnet
 }
-output subnetid string = subnet.id
+//output subnetid string = subnet.id
 
 
 @description('The name of the Azure Databricks workspace to create.')
