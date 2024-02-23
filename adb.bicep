@@ -33,12 +33,13 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-11-01' existing = {
 @description('The name of the Azure Databricks workspace to create.')
 param workspaceName string
 
-/*
 var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(workspaceName, resourceGroup().id)}'
-var trimmedMRGName = substring(managedResourceGroupName, 0, min(length(managedResourceGroupName), 90))
-var managedResourceGroupId = '${subscription().id}/resourceGroups/${trimmedMRGName}'
-*/
-var managedResourceGroupName = 'databricks-rg-${workspaceName}-${uniqueString(workspaceName, resourceGroup().id)}'
+var managedResourceGroupId = managedResourceGroup.id
+
+resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
+  scope: subscription()
+  name: managedResourceGroupName
+}
 
 resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
   name: workspaceName
@@ -47,7 +48,7 @@ resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
     name: pricingTier
   }
   properties: {
-    managedResourceGroupId: managedResourceGroup.id
+    managedResourceGroupId: managedResourceGroupId
     parameters: {
       customVirtualNetworkId: {
         value: vnet.id
@@ -66,9 +67,4 @@ resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
     publicNetworkAccess: publicNetworkAccess
     requiredNsgRules: requiredNsgRules
   }
-}
-
-resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
-  scope: subscription()
-  name: managedResourceGroupName
 }
