@@ -39,6 +39,7 @@ stages:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Resource Group'
+        resourceGroupName: '$(resourceGroupName)'
         azureResourceManagerConnection: '$(azureServiceConnection)'
         action: 'Create Or Update Resource Group'
         location: '$(location)'
@@ -77,6 +78,7 @@ stages:
               name: DeployBicepTemplate
               inputs:
                 deploymentScope: 'Resource Group'
+                resourceGroupName: '$(resourceGroupName)'
                 azureResourceManagerConnection: '$(azureServiceConnection)'
                 action: 'Create Or Update Resource Group'
                 location: '$(location)'
