@@ -14,18 +14,18 @@ param location string //= resourceGroup().location
 param pricingTier string = 'premium'
 
 @description('The name of the public subnet to create.')
-param publicSubnetName string = 'sn-dbw-public'
+param publicSubnetName string = 'snet-adb-public'
 
 @description('The name of the private subnet to create.')
-param privateSubnetName string = 'sn-dbw-private'
+param privateSubnetName string = 'snet-adb-private'
 
-param vnetResourceGroupName string = 'rg-sec-dbw-prod'
+param vnetResourceGroupName string = 'RG-Bicep-Adb'
 
-param vnetName string = 'vnet-sec-dbw-prod'
+param vnetName string = 'bicep-adb-vnet'
 
 param ProdsubscriptionID string = '2f054702-74ef-49dc-8055-920692478b36'
 
-resource vnet 'Microsoft.Network/virtualNetworks@2022-11-01' existing = {
+resource vnet 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
   name: vnetName
   scope: resourceGroup(ProdsubscriptionID,vnetResourceGroupName)
 }
