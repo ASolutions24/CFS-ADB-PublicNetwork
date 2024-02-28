@@ -14,7 +14,7 @@ variables:
   location: 'australiaeast'
   templateFile: '/adb.bicep'
   templateParameterFile: '/adb.parameters.json'
-  resourceGroupName: 'rg-sec-dbw-prod'
+  resourceGroupName: 'RG-Bicep-Adb'
 
 pool:
   vmImage: $(vmImageName)
