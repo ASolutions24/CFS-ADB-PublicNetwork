@@ -41,7 +41,7 @@ resource managedResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' ex
   name: managedResourceGroupName
 }
 
-resource symbolicname 'Microsoft.Databricks/workspaces@2023-02-01' = {
+resource symbolicname 'Microsoft.Databricks/workspaces@2022-04-01-preview' = {
   name: workspaceName
   location: location
   sku: {
