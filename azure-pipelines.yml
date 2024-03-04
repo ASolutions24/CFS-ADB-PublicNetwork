@@ -8,12 +8,12 @@ trigger: none
 name: Deploy Bicep files
 
 variables:
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'windows-latest'
 
   azureServiceConnection: 'Prod_Subscription'
   location: 'australiaeast'
-  templateFile: '/adb.bicep'
-  templateParameterFile: '/adb.parameters.json'
+  templateFile: 'adb.bicep'
+  templateParameterFile: 'adb.parameters.json'
   resourceGroupName: 'RG-Bicep-Adb'
 
 pool:
@@ -53,16 +53,12 @@ stages:
   jobs: 
   - job: Preview
     steps:
-    - task: AzureCLI@2
+    - task: AzurePowerShell@5
       inputs:
-        azureSubscription: '$(azureServiceConnection)'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          az deployment group what-if \
-            --template-file $(Build.SourcesDirectory)/$(templateFile) \
-            --parameters '$(Build.SourcesDirectory)/$(templateParameterFile)' \
-            --resource-group '$(resourceGroupName)'
+        azureSubscription: 'Prod_Subscription'
+        ScriptType: 'InlineScript'
+        Inline: 'New-AzResourceGroupDeployment -ResourceGroupName $(resourceGroupName) -TemplateFile $(Build.SourcesDirectory)/$(templateFile) -TemplateParameterFile $(Build.SourcesDirectory)/$(templateParameterFile) -whatif'
+        azurePowerShellVersion: 'LatestVersion'
 
 - stage: Deploy
   jobs:
