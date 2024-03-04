@@ -56,13 +56,9 @@ stages:
     - task: AzureCLI@2
       inputs:
         azureSubscription: '$(azureServiceConnection)'
-        scriptType: 'bash'
+        scriptType: 'ps'
         scriptLocation: 'inlineScript'
-        inlineScript: |
-          az deployment group what-if \
-            --template-file $(Build.SourcesDirectory)/$(templateFile) \
-            --parameters '$(Build.SourcesDirectory)/$(templateParameterFile)' \
-            --resource-group '$(resourceGroupName)'
+        inlineScript: 'New-AzResourceGroupDeployment -ResourceGroupName ''$(resourceGroupName)'' -TemplateFile $(Build.SourcesDirectory)/$(templateFile) -TemplateParameterFile ''$(Build.SourcesDirectory)/$(templateParameterFile)'' -whatif'
 
 - stage: Deploy
   jobs:
