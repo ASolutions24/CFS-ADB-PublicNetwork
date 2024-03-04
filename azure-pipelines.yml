@@ -12,8 +12,8 @@ variables:
 
   azureServiceConnection: 'Prod_Subscription'
   location: 'australiaeast'
-  templateFile: '/adb.bicep'
-  templateParameterFile: '/adb.parameters.json'
+  templateFile: 'adb.bicep'
+  templateParameterFile: 'adb.parameters.json'
   resourceGroupName: 'RG-Bicep-Adb'
 
 pool:
