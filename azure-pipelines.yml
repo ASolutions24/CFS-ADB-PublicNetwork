@@ -8,7 +8,7 @@ trigger: none
 name: Deploy Bicep files
 
 variables:
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'windows-latest'
 
   azureServiceConnection: 'Prod_Subscription'
   location: 'australiaeast'
