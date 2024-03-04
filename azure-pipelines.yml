@@ -58,7 +58,11 @@ stages:
         azureSubscription: '$(azureServiceConnection)'
         scriptType: 'ps'
         scriptLocation: 'inlineScript'
-        inlineScript: 'New-AzResourceGroupDeployment -ResourceGroupName ''$(resourceGroupName)'' -TemplateFile $(Build.SourcesDirectory)/$(templateFile) -TemplateParameterFile ''$(Build.SourcesDirectory)/$(templateParameterFile)'' -whatif'
+        inlineScript: |
+          az deployment group what-if \
+            --template-file $(Build.SourcesDirectory)/$(templateFile) \
+            --parameters '$(Build.SourcesDirectory)/$(templateParameterFile)' \
+            --resource-group '$(resourceGroupName)'
 
 - stage: Deploy
   jobs:
