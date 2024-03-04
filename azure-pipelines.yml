@@ -56,7 +56,7 @@ stages:
     - task: AzureCLI@2
       inputs:
         azureSubscription: '$(azureServiceConnection)'
-        scriptType: 'ps'
+        scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
           az deployment group what-if \
