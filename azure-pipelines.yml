@@ -55,7 +55,7 @@ stages:
     steps:
     - task: AzurePowerShell@5
       inputs:
-        azureSubscription: 'Prod_Subscription'
+        azureSubscription: '$(azureServiceConnection)'
         ScriptType: 'InlineScript'
         Inline: 'New-AzResourceGroupDeployment -ResourceGroupName $(resourceGroupName) -TemplateFile $(Build.SourcesDirectory)/$(templateFile) -TemplateParameterFile $(Build.SourcesDirectory)/$(templateParameterFile) -whatif'
         azurePowerShellVersion: 'LatestVersion'
