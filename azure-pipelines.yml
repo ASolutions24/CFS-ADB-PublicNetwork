@@ -39,9 +39,9 @@ stages:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Resource Group'
-        resourceGroupName: '$(resourceGroupName)'
-        azureResourceManagerConnection: '$(azureServiceConnection)'
+        azureResourceManagerConnection: 'New-Prod-ServiceConnection'
         action: 'Create Or Update Resource Group'
+        resourceGroupName: '$(resourceGroupName)'
         location: '$(location)'
         templateLocation: 'Linked artifact'
         csmFile: '$(Build.SourcesDirectory)/$(templateFile)'
